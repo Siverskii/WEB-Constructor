@@ -6,7 +6,7 @@
         autocomplete="off" type="text"
         ref = "input">
   </div>
-  <BlockMenu v-on:delete-block="deleteBlock(id)"/>
+  <BlockMenu :type="'BlockMenu'" @change-font="changeFont" @delete-block="deleteBlock(id)"/>
   </div>
 </template>
  
@@ -21,16 +21,23 @@ export default {
   },
   data:function(){
     return{
-      fontSize: '1rem'
+      size: 1,
     }
   },
   methods: {
+    changeFont:function(e,type){
+      if(type == "sub") this.size =  this.size - .25;
+      if(type == "add") this.size =  this.size + .25;
+    },
      ...mapMutations([
       'changeContent',
       'deleteBlock'
     ])
   },
   computed: {
+    fontSize: function(){
+      return  this.size + 'rem';
+    },
       style () {
         return {fontSize: this.fontSize};
       }

@@ -26,8 +26,10 @@ export default {
 .image-block-container{
   margin: 5rem;
   position: relative;
+  display: flex;
+  justify-content: center;
 }
 .img{
-  width: 100%;
+  width: 50%;
 }
 </style>>

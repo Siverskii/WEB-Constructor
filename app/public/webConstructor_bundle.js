@@ -818,7 +818,6 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
       var content = state.content.filter(function (item) {
         return item.id != id;
       });
-      console.log(id, content);
       state.content = content;
     }
   }
@@ -879,6 +878,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -968,11 +972,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      fontSize: '1rem'
+      size: 1
     };
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])(['changeContent', 'deleteBlock'])),
+  methods: _objectSpread({
+    changeFont: function changeFont(e, type) {
+      if (type == "sub") this.size = this.size - .25;
+      if (type == "add") this.size = this.size + .25;
+    }
+  }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])(['changeContent', 'deleteBlock'])),
   computed: {
+    fontSize: function fontSize() {
+      return this.size + 'rem';
+    },
     style: function style() {
       return {
         fontSize: this.fontSize
@@ -1152,7 +1164,7 @@ module.exports = exports;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.block-menu-container[data-v-1c30d4f0]{\n    width: 100%;\n    position: absolute;\n    top:-3rem;\n    left: 0;\n    display: flex;\n}\n.block-menu-btn[data-v-1c30d4f0]{\n    color: #ffb196;\n    text-align: center;\n    line-height: 2.5rem;\n    font-size: 2.2rem;\n    margin-left: auto;\n    cursor: pointer;\n}\n.block-menu-btn[data-v-1c30d4f0]:hover{\n    text-shadow: 0 0 1px #ff4949;\n}\n", ""]);
+exports.push([module.i, "\n.block-menu-container[data-v-1c30d4f0]{\n    width: 100%;\n    position: absolute;\n    top:-3rem;\n    left: 0;\n    display: flex;\n    justify-content: space-between;\n}\n.block-menu-btn[data-v-1c30d4f0]{\n    color: #ffb196;\n    text-align: center;\n    line-height: 2.5rem;\n    font-size: 2.2rem;\n    margin-left: auto;\n    cursor: pointer;\n}\n.block-menu-btn[data-v-1c30d4f0]:hover{\n    text-shadow: 0 0 1px #ff4949;\n}\n.fontContainer[data-v-1c30d4f0]{\n    width: 5rem;\n    margin-right: auto;\n    display: flex;\n    line-height: 2.5rem;\n}\n.fontSizeReg[data-v-1c30d4f0]{\n    font-size: 1.75rem;\n    padding: 0 .5rem;\n    cursor: pointer;\n}\n.fontSizeReg[data-v-1c30d4f0]:hover{\n    text-shadow: 0 0 1px #ff4949;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -1170,7 +1182,7 @@ module.exports = exports;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.image-block-container[data-v-4541c63e]{\n  margin: 5rem;\n  position: relative;\n}\n.img[data-v-4541c63e]{\n  width: 100%;\n}\n", ""]);
+exports.push([module.i, "\n.image-block-container[data-v-4541c63e]{\n  margin: 5rem;\n  position: relative;\n  display: flex;\n  justify-content: center;\n}\n.img[data-v-4541c63e]{\n  width: 50%;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -1840,18 +1852,48 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 var render = function() {
-  var this$1 = this
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "block-menu-container" }, [
+    _vm.type == "BlockMenu"
+      ? _c("div", { staticClass: "fontContainer" }, [
+          _vm._v("\n        Шрифт: \n        "),
+          _c(
+            "div",
+            {
+              staticClass: "fontSizeReg",
+              on: {
+                click: function($event) {
+                  return _vm.$emit("change-font", $event, "add")
+                }
+              }
+            },
+            [_vm._v("+")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "fontSizeReg",
+              on: {
+                click: function($event) {
+                  return _vm.$emit("change-font", $event, "sub")
+                }
+              }
+            },
+            [_vm._v("-")]
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
     _c(
       "div",
       {
         staticClass: "block-menu-btn",
         on: {
-          click: function() {
-            this$1.$emit("delete-block")
+          click: function($event) {
+            return _vm.$emit("delete-block")
           }
         }
       },
@@ -1942,7 +1984,9 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("BlockMenu", {
+        attrs: { type: "BlockMenu" },
         on: {
+          "change-font": _vm.changeFont,
           "delete-block": function($event) {
             return _vm.deleteBlock(_vm.id)
           }
