@@ -74,6 +74,7 @@ export default {
 
 .block{
     position: relative;
+    z-index: 100;
 }
 
 .block:hover > div{

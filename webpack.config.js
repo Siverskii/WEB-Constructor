@@ -44,6 +44,9 @@ module.exports = {
                 use: [
                   {
                     loader: 'url-loader',
+                    options: {
+                        esModule: false,
+                    },
                   }
                 ]
               }

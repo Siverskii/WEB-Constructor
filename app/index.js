@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './app.vue'
 import Vuex from 'vuex';
-
+import {defaultContent} from './defaultContent'
 Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
@@ -26,35 +26,27 @@ const store = new Vuex.Store({
     addBlock(state,block){
       if(block == 'text'){
         state.content.push({
+          id:Date.now(),
           type:'TextBlock',
-          data:`Я помню чудное мгновенье:
-          Передо мной явилась ты,
-          Как мимолетное виденье,
-          Как гений чистой красоты.
-          В томленьях грусти безнадежной,
-          В тревогах шумной суеты,
-          Звучал мне долго голос нежный
-          И снились милые черты.
-          Шли годы. Бурь порыв мятежный
-          Рассеял прежние мечты,
-          И я забыл твой голос нежный,
-          Твои небесные черты.
-          В глуши, во мраке заточенья
-          Тянулись тихо дни мои
-          Без божества, без вдохновенья,
-          Без слез, без жизни, без любви.
-          Душе настало пробужденье:
-          И вот опять явилась ты,
-          Как мимолетное виденье,
-          Как гений чистой красоты.
-          И сердце бьется в упоенье,
-          И для него воскресли вновь
-          И божество, и вдохновенье,
-          И жизнь, и слезы, и любовь.`
+          data:defaultContent.text
       });
       }else if(block == 'img'){
-        state.content.push({type:'ImageBlock',data:"picture.jpg"});
+        state.content.push({id:Date.now(),type:'ImageBlock',data:defaultContent.image});
       }
+    },
+    changeContent(state,block){
+      let content = state.content.map((item)=>{
+          if(item.id == block.id){
+            item.data = block.data;
+            item.type = "TextBlock"
+          } 
+        return item;
+      })
+      state.content = [...content];
+    },
+    deleteBlock(state,id){
+      let content = state.content.filter(item => item.id != id);
+      state.content = [...content];
     }
   }
 })
