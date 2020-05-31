@@ -1,9 +1,12 @@
 <template>
 <div class="text-block-container">
-  <div @input="changeContent({data:$event.target.innerText,id})" :style="style" contenteditable="true">
-        {{data}}    
+  <div  @input="changeContent({data:$event.target.innerText,id})"  
+        :style="style" 
+        contenteditable="true"
+        autocomplete="off" type="text"
+        ref = "input">
   </div>
-  <BlockMenu v-on:delete-block = "deleteBlock(id)"/>
+  <BlockMenu v-on:delete-block="deleteBlock(id)"/>
   </div>
 </template>
  
@@ -31,6 +34,9 @@ export default {
       style () {
         return {fontSize: this.fontSize};
       }
+  },
+  mounted:function(){
+    this.$refs.input.innerText = this.data;
   },
 }
 </script>

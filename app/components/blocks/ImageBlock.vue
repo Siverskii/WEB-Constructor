@@ -1,7 +1,7 @@
 <template>
 <div class="image-block-container">
   <img class="img" :src="require(`../../assets/img/${data}`)">
-  <BlockMenu v-on:delete-block = "deleteBlock(id)"/>
+  <BlockMenu v-on:delete-block =  "deleteBlock(id)"/>
 </div>
 </template>
  

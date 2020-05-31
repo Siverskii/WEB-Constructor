@@ -1,6 +1,6 @@
 <template>
 <div class="block-menu-container">
-    <div @click = "()=>this.$emit('delete-block')" class="block-menu-btn">&#215;</div>
+    <div @click = "()=>{this.$emit('delete-block')}" class="block-menu-btn">&#215;</div>
 </div>
 </template>
  

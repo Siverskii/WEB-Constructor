@@ -46,7 +46,8 @@ const store = new Vuex.Store({
     },
     deleteBlock(state,id){
       let content = state.content.filter(item => item.id != id);
-      state.content = [...content];
+      console.log(id,content)
+      state.content = content;
     }
   }
 })

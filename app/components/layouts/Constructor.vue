@@ -2,7 +2,7 @@
 <div>
   <TopMenu type='constructor'/>
   <div v-if = "content.length !=0" class="content-container">
-    <div v-for="(item,index) in content" :key=index>
+    <div v-for="(item) in content" :key=item.id>
         <component :is="item.type" :id='item.id' :data="item.data"></component>
     </div>
   </div>
